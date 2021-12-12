@@ -1,0 +1,22 @@
+=====================================================================
+Welcome to Book Catalog application
+=====================================================================
+version 0.0.1
+
+Type command and press enter:
+
+'add-book bookName name lastName genre'
+Description: create book with parameters(bookName - name of book, name - author name, lastname - author lastname, genre - type genre)
+'find-book bookName'
+Description: find book by name
+'get-all-books'
+Description: return list of books
+
+'add-author name lastName genre'
+Description: create author with parameters(name - author name, lastname - author lastname, genre - type genre)
+'find-author name lastname'
+Description: find author by name and lastname
+'get-all-authors'
+Description: return list of authors
+
+Use command 'help' for help
