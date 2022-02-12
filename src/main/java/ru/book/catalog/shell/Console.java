@@ -45,7 +45,7 @@ public class Console {
 
     @ShellMethod(value = "Get all books", key = {"get-all-books"})
     public String getAllBooks() {
-        return "Books stab";
+        return bookService.getAll().toString();
     }
 
     @ShellMethod(value = "Create author", key = {"add-author"})

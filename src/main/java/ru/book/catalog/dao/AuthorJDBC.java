@@ -5,11 +5,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import ru.book.catalog.dao.mapper.AuthorMapper;
 import ru.book.catalog.model.Author;
-import ru.book.catalog.model.Genre;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +38,7 @@ public class AuthorJDBC implements AuthorRepository{
             author.setAuthorId(number.longValue());
         } else {
             namedParameterJdbcTemplate.update("UPDATE authors SET name = :name, last_name = :last_name, genre_id = :genre_id, " +
-                    "where author_id = :author_id", params);
+                    "WHERE author_id = :author_id", params);
         }
         return author;
 
@@ -49,8 +47,8 @@ public class AuthorJDBC implements AuthorRepository{
     @Override
     public Author getById(long id) {
         Map<String, Object> params = Collections.singletonMap("id", id);
-        return namedParameterJdbcTemplate.queryForObject("select author_id, name, last_name, genre_id from authors " +
-                "where author_id = :id", params, new AuthorMapper());
+        return namedParameterJdbcTemplate.queryForObject("SELECT author_id, name, last_name, genre_id FROM authors " +
+                "WHERE author_id = :id", params, new AuthorMapper());
     }
 
     @Override
@@ -58,31 +56,18 @@ public class AuthorJDBC implements AuthorRepository{
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
         params.put("lastName", lastName);
-        return namedParameterJdbcTemplate.queryForObject("select author_id, name, last_name, genre_id from authors " +
-                "where name = :name and last_name = :lastName", params, new AuthorMapper());
+        return namedParameterJdbcTemplate.queryForObject("SELECT author_id, name, last_name, genre_id FROM authors " +
+                "WHERE name = :name AND last_name = :lastName", params, new AuthorMapper());
     }
 
     @Override
      public List<Author> getAll() {
-       return namedParameterJdbcTemplate.query("select author_id, name, last_name, genre_id from authors", new AuthorMapper());
+       return namedParameterJdbcTemplate.query("SELECT author_id, name, last_name, genre_id FROM authors", new AuthorMapper());
     }
 
     @Override
     public boolean delete(long id) {
         Map<String, Object> params = Collections.singletonMap("id", id);
-        return namedParameterJdbcTemplate.update("delete from authors where author_id =:id", params) != 0 ;
-    }
-
-    private static class AuthorMapper implements RowMapper<Author> {
-
-        @Override
-        public Author mapRow(ResultSet resultSet, int i) throws SQLException {
-            long authorId = resultSet.getLong("author_id");
-            String name = resultSet.getString("name");
-            String lastName = resultSet.getString("last_name");
-            Genre genre = Genre.getGenre(resultSet.getLong("genre_id"));
-
-            return new Author(authorId, name, lastName, null, genre);
-        }
+        return namedParameterJdbcTemplate.update("DELETE FROM authors WHERE author_id =:id", params) != 0 ;
     }
 }
