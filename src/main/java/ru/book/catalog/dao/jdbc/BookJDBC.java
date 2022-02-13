@@ -1,8 +1,9 @@
-package ru.book.catalog.dao;
+package ru.book.catalog.dao.jdbc;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import ru.book.catalog.dao.BookRepository;
 import ru.book.catalog.dao.mapper.BookMapper;
 import ru.book.catalog.model.Book;
 
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class BookJDBC implements BookRepository{
+public class BookJDBC implements BookRepository {
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final SimpleJdbcInsert simpleJdbcInsert;
 

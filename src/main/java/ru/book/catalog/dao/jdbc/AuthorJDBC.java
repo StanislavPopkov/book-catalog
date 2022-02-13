@@ -1,10 +1,11 @@
-package ru.book.catalog.dao;
+package ru.book.catalog.dao.jdbc;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import ru.book.catalog.dao.AuthorRepository;
 import ru.book.catalog.dao.mapper.AuthorMapper;
 import ru.book.catalog.model.Author;
 
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class AuthorJDBC implements AuthorRepository{
+public class AuthorJDBC implements AuthorRepository {
     private static final RowMapper<Author> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Author.class);
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private final SimpleJdbcInsert simpleJdbcInsert;

@@ -48,6 +48,16 @@ public class Console {
         return bookService.getAll().toString();
     }
 
+    @ShellMethod(value = "Delete book", key = {"delete-book"})
+    public String deleteBook(long bookId) {
+        boolean delete = bookService.delete(bookId);
+        if (delete) {
+            return "Book was deleted";
+        } else {
+            return "Book was not deleted";
+        }
+    }
+
     @ShellMethod(value = "Create author", key = {"add-author"})
     public String addAuthor(String name, String lastName, String genre) {
         Genre genreValue = null;
@@ -70,5 +80,15 @@ public class Console {
     @ShellMethod(value = "Get all authors", key = {"get-all-authors"})
     public String getAllAuthors() {
         return authorService.getAll().toString();
+    }
+
+    @ShellMethod(value = "Delete author", key = {"delete-author"})
+    public String deleteAuthor(long authorId) {
+        boolean delete = authorService.delete(authorId);
+        if (delete) {
+            return "Author was deleted";
+        } else {
+            return "Author was not deleted";
+        }
     }
 }
